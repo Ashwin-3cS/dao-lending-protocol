@@ -1,6 +1,10 @@
 # Compiler files
 cache/
 out/
+zkout/
+
+# Dependencies
+lib/
 
 # Ignores development broadcast logs
 !/broadcast
