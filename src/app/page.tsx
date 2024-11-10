@@ -27,17 +27,36 @@ import LoginWithPasskey from "@/components/LoginWithPasskey";
 import SafeAccountDetails from "@/components/SafeAccountDetails";
 import SafeThemeProvider from "../components/SafeThemeProvider";
 import { createPasskey, storePasskeyInLocalStorage } from "../lib/passkeys";
+import axios from "axios";
 
 function Create4337SafeAccount() {
   const [selectedPasskey, setSelectedPasskey] = useState<PasskeyArgType>();
+  const [safeAddress, setSafeAddress] = useState<string | undefined>(); // add state for safe address
 
-  async function handleCreatePasskey() {
+  // async function handleCreatePasskey() {
+  //   const passkey = await createPasskey();
+
+  //   storePasskeyInLocalStorage(passkey);
+
+  //   setSelectedPasskey(passkey);
+  // }
+
+  async function handleCreatePasskey(username: string, email: string) {
     const passkey = await createPasskey();
-
-    storePasskeyInLocalStorage(passkey);
+    // storePasskeyInLocalStorage(passkey);
     setSelectedPasskey(passkey);
-  }
 
+    // Send user data and passkey to API route using axios
+    try {
+      await axios.post("/api/user", {
+        username,
+        email,
+        passkey,
+      });
+    } catch (error) {
+      console.error("Error saving passkey:", error);
+    }
+  }
   async function handleSelectPasskey(passkey: PasskeyArgType) {
     setSelectedPasskey(passkey);
   }
@@ -47,7 +66,11 @@ function Create4337SafeAccount() {
       {(safeTheme: Theme) => (
         <ThemeProvider theme={safeTheme}>
           {selectedPasskey ? (
-            <SafeAccountDetails passkey={selectedPasskey} />
+            <SafeAccountDetails
+              passkey={selectedPasskey}
+              setSafeAddress={setSafeAddress}
+              safeAddress={safeAddress}
+            />
           ) : (
             <LoginWithPasskey
               handleCreatePasskey={handleCreatePasskey}

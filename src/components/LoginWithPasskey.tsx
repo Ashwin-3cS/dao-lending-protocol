@@ -1,14 +1,24 @@
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
-import { Button, Divider, Paper, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  Divider,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { PasskeyArgType } from "@safe-global/protocol-kit";
 import { loadPasskeysFromLocalStorage } from "../lib/passkeys";
+import { useState } from "react";
 
 type props = {
-  handleCreatePasskey: () => {};
+  handleCreatePasskey: (username: string, email: string) => void;
   handleSelectPasskey: (passkey: PasskeyArgType) => {};
 };
 
 function LoginWithPasskey({ handleCreatePasskey, handleSelectPasskey }: props) {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   return (
     <Paper
       sx={{
@@ -29,8 +39,26 @@ function LoginWithPasskey({ handleCreatePasskey, handleSelectPasskey }: props) {
           Create a new Safe using passkeys
         </Typography>
 
+        <TextField
+          label="Username"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <TextField
+          label="Email"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
         <Button
-          onClick={handleCreatePasskey}
+          onClick={() => handleCreatePasskey(username, email)}
           startIcon={<FingerprintIcon />}
           variant="outlined"
           sx={{ marginBottom: "24px" }}

@@ -19,11 +19,13 @@ import SafeLogo from "../../public/safeLogo.png";
 
 type props = {
   passkey: PasskeyArgType;
+  setSafeAddress: (address: string) => void; // Ensure this matches the expected function type
+  safeAddress: string | undefined; // Adjust type if needed
 };
 
-function SafeAccountDetails({ passkey }: props) {
+function SafeAccountDetails({ passkey, setSafeAddress, safeAddress }: props) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [safeAddress, setSafeAddress] = useState<string>();
+  // const [safeAddress, setSafeAddress] = useState<string>();
   const [isSafeDeployed, setIsSafeDeployed] = useState<boolean>();
   const [userOp, setUserOp] = useState<string>();
 
@@ -41,6 +43,7 @@ function SafeAccountDetails({ passkey }: props) {
     });
 
     const safeAddress = await safe4337Pack.protocolKit.getAddress();
+    setSafeAddress(safeAddress);
     console.log(safeAddress, "safeAddress");
 
     const isSafeDeployed = await safe4337Pack.protocolKit.isSafeDeployed();
