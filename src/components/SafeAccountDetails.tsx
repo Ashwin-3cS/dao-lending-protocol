@@ -12,26 +12,89 @@ import {
 import { PasskeyArgType } from "@safe-global/protocol-kit";
 import { Safe4337Pack } from "@safe-global/relay-kit";
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
 import { BUNDLER_URL, CHAIN_NAME, RPC_URL } from "../lib/constants";
 import { mintNFT } from "../lib/mintNFT";
 import SafeLogo from "../../public/safeLogo.png";
+import axios from "axios";
+import { useCallback, useEffect, useState, useRef } from "react";
 
 type props = {
   passkey: PasskeyArgType;
-  setSafeAddress: (address: string) => void; // Ensure this matches the expected function type
-  safeAddress: string | undefined; // Adjust type if needed
+  setSafeAddress: (address: string) => void;
+  safeAddress: string | undefined;
+  username: string;
+  email: string;
 };
 
-function SafeAccountDetails({ passkey, setSafeAddress, safeAddress }: props) {
+// function SafeAccountDetails({
+//   passkey,
+//   setSafeAddress,
+//   safeAddress,
+//   username,
+//   email,
+// }: props) {
+//   const [isLoading, setIsLoading] = useState<boolean>(true);
+//   // const [safeAddress, setSafeAddress] = useState<string>();
+//   const [isSafeDeployed, setIsSafeDeployed] = useState<boolean>();
+//   const [userOp, setUserOp] = useState<string>();
+
+//   const showSafeInfo = useCallback(async () => {
+//     setIsLoading(true);
+
+//     const safe4337Pack = await Safe4337Pack.init({
+//       provider: RPC_URL,
+//       signer: passkey,
+//       bundlerUrl: BUNDLER_URL,
+//       options: {
+//         owners: [],
+//         threshold: 1,
+//       },
+//     });
+
+//     const safeAddress = await safe4337Pack.protocolKit.getAddress();
+//     setSafeAddress(safeAddress);
+//     console.log(safeAddress, "safeAddress");
+
+//     const isSafeDeployed = await safe4337Pack.protocolKit.isSafeDeployed();
+
+//     setIsSafeDeployed(isSafeDeployed);
+//     setIsLoading(false);
+
+//     if (safeAddress) {
+//       try {
+//         await axios.post("/api/user", {
+//           username,
+//           email,
+//           passkey,
+//           safeAddress,
+//         });
+//       } catch (error) {
+//         console.error("Error saving safe details:", error);
+//       }
+//     }
+//   }, [passkey, setSafeAddress, username, email]);
+
+//   useEffect(() => {
+//     showSafeInfo();
+//   }, [showSafeInfo]);
+
+function SafeAccountDetails({
+  passkey,
+  setSafeAddress,
+  safeAddress,
+  username,
+  email,
+}: props) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  // const [safeAddress, setSafeAddress] = useState<string>();
   const [isSafeDeployed, setIsSafeDeployed] = useState<boolean>();
   const [userOp, setUserOp] = useState<string>();
+  const hasCalledSafeInfo = useRef(false); // Ref to track if function has been called
 
   const showSafeInfo = useCallback(async () => {
-    setIsLoading(true);
+    if (hasCalledSafeInfo.current) return; // Prevent duplicate calls
+    hasCalledSafeInfo.current = true;
 
+    setIsLoading(true);
     const safe4337Pack = await Safe4337Pack.init({
       provider: RPC_URL,
       signer: passkey,
@@ -48,10 +111,22 @@ function SafeAccountDetails({ passkey, setSafeAddress, safeAddress }: props) {
 
     const isSafeDeployed = await safe4337Pack.protocolKit.isSafeDeployed();
 
-    setSafeAddress(safeAddress);
     setIsSafeDeployed(isSafeDeployed);
     setIsLoading(false);
-  }, [passkey]);
+
+    if (safeAddress) {
+      try {
+        await axios.post("/api/user", {
+          username,
+          email,
+          passkey,
+          safeAddress,
+        });
+      } catch (error) {
+        console.error("Error saving safe details:", error);
+      }
+    }
+  }, [passkey, setSafeAddress, username, email]);
 
   useEffect(() => {
     showSafeInfo();

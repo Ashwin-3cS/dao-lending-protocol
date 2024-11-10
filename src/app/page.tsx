@@ -28,12 +28,14 @@ import SafeAccountDetails from "@/components/SafeAccountDetails";
 import SafeThemeProvider from "../components/SafeThemeProvider";
 import { createPasskey, storePasskeyInLocalStorage } from "../lib/passkeys";
 import axios from "axios";
+import { set } from "mongoose";
 
 function Create4337SafeAccount() {
   const [selectedPasskey, setSelectedPasskey] = useState<PasskeyArgType>();
   const [safeAddress, setSafeAddress] = useState<string | undefined>(); // add state for safe address
-
-  // async function handleCreatePasskey() {
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  // async function handleCreatePassk ey() {
   //   const passkey = await createPasskey();
 
   //   storePasskeyInLocalStorage(passkey);
@@ -42,20 +44,26 @@ function Create4337SafeAccount() {
   // }
 
   async function handleCreatePasskey(username: string, email: string) {
+    setUsername(username);
+    setEmail(email);
+
     const passkey = await createPasskey();
+    console.log(passkey, "passkey from page.tsx");
+
     // storePasskeyInLocalStorage(passkey);
     setSelectedPasskey(passkey);
+    console.log(selectedPasskey, "selectedPasskey from page.tsx");
 
     // Send user data and passkey to API route using axios
-    try {
-      await axios.post("/api/user", {
-        username,
-        email,
-        passkey,
-      });
-    } catch (error) {
-      console.error("Error saving passkey:", error);
-    }
+    // try {
+    //   await axios.post("/api/user", {
+    //     username,
+    //     email,
+    //     passkey,
+    //   });
+    // } catch (error) {
+    //   console.error("Error saving passkey:", error);
+    // }
   }
   async function handleSelectPasskey(passkey: PasskeyArgType) {
     setSelectedPasskey(passkey);
@@ -70,6 +78,8 @@ function Create4337SafeAccount() {
               passkey={selectedPasskey}
               setSafeAddress={setSafeAddress}
               safeAddress={safeAddress}
+              username={username}
+              email={email}
             />
           ) : (
             <LoginWithPasskey
