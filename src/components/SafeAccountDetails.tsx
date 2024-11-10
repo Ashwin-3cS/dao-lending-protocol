@@ -116,7 +116,7 @@ function SafeAccountDetails({
 
     if (safeAddress) {
       try {
-        await axios.post("/api/user", {
+        await axios.post("/api/user/user-post", {
           username,
           email,
           passkey,
