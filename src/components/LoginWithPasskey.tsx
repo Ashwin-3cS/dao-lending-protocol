@@ -28,6 +28,7 @@ function LoginWithPasskey({ handleCreatePasskey, handleSelectPasskey }: props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [existingEmail, setExistingEmail] = useState("");
+  const [existingPassword, setExistingPassword] = useState("");
   return (
     <Paper
       sx={{
@@ -118,12 +119,24 @@ function LoginWithPasskey({ handleCreatePasskey, handleSelectPasskey }: props) {
           value={existingEmail}
           onChange={(e) => setExistingEmail(e.target.value)}
         />
+        <TextField
+          label="Password for Existing Passkey"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          type="password"
+          value={existingPassword}
+          onChange={(e) => setExistingPassword(e.target.value)}
+        />
 
         <Button
           startIcon={<FingerprintIcon />}
           variant="contained"
           onClick={async () => {
-            const passkeys = await loadPasskeysFromDB(existingEmail);
+            const passkeys = await loadPasskeysFromDB(
+              existingEmail,
+              existingPassword
+            );
             console.log(passkeys, "from button");
 
             if (passkeys.length > 0) {

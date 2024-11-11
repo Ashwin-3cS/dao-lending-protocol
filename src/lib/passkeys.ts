@@ -67,9 +67,13 @@ export function loadPasskeysFromLocalStorage(): PasskeyArgType[] {
 
   return passkeyIds
 }
-export async function loadPasskeysFromDB(email: string): Promise<PasskeyArgType[]> {
+export async function loadPasskeysFromDB(email: string, password: string): Promise<PasskeyArgType[]> {
   try {
-    const response = await axios.get(`/api/user/getUserPassKey/${email}`);
+    const response = await axios.get(`/api/user/getUserPassKey/${email}`, {
+      params: {
+        password
+      }
+    });
     return response.data.passkeys;
   } catch (error) {
     console.error('Error loading passkeys from DB:', error);
@@ -77,14 +81,15 @@ export async function loadPasskeysFromDB(email: string): Promise<PasskeyArgType[
   }
 }
 
+
 /**
  * Get passkey object from local storage.
  * @param {string} passkeyRawId - Raw ID of the passkey.
  * @returns {PasskeyArgType} Passkey object.
  */
-export async function getPasskeyFromRawId(passkeyRawId: string,email: string): Promise<PasskeyArgType | undefined> {
+export async function getPasskeyFromRawId(passkeyRawId: string,email: string , password: string): Promise<PasskeyArgType | undefined> {
   // const passkeys = loadPasskeysFromLocalStorage()
-  const passkeys =await loadPasskeysFromDB(email);
+  const passkeys =await loadPasskeysFromDB(email,password);
   const passkey = passkeys.find((passkey:any) => passkey.rawId === passkeyRawId)!
 
   return passkey
