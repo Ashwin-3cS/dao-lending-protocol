@@ -51,19 +51,26 @@ export const mintNFT = async (
     transactions: [mintNFTTransaction]
   })
 
+  
+
   // 3) Sign SafeOperation
   const signedSafeOperation =
     await safe4337Pack.signSafeOperation(safeOperation)
 
-  console.log('SafeOperation', signedSafeOperation)
+
+  
 
   // 4) Execute SafeOperation
   const userOperationHash = await safe4337Pack.executeTransaction({
     executable: signedSafeOperation
   })
 
+  console.log(userOperationHash, 'userOperationHash');
+  
+
   return userOperationHash
 }
+
 
 /**
  * Encodes the data for a safe mint operation.
