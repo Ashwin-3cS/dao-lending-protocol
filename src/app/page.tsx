@@ -27,9 +27,6 @@ import LoginWithPasskey from "@/components/LoginWithPasskey";
 import SafeAccountDetails from "@/components/SafeAccountDetails";
 import SafeThemeProvider from "../components/SafeThemeProvider";
 import { createPasskey, storePasskeyInLocalStorage } from "../lib/passkeys";
-import axios from "axios";
-import { set } from "mongoose";
-
 function Create4337SafeAccount() {
   const [selectedPasskey, setSelectedPasskey] = useState<PasskeyArgType>();
   const [safeAddress, setSafeAddress] = useState<string | undefined>(); // add state for safe address
@@ -81,14 +78,16 @@ function Create4337SafeAccount() {
       {(safeTheme: Theme) => (
         <ThemeProvider theme={safeTheme}>
           {selectedPasskey ? (
-            <SafeAccountDetails
-              passkey={selectedPasskey}
-              setSafeAddress={setSafeAddress}
-              safeAddress={safeAddress}
-              username={username}
-              email={email}
-              password={password}
-            />
+            <div>
+              <SafeAccountDetails
+                passkey={selectedPasskey}
+                setSafeAddress={setSafeAddress}
+                safeAddress={safeAddress}
+                username={username}
+                email={email}
+                password={password}
+              />
+            </div>
           ) : (
             <LoginWithPasskey
               handleCreatePasskey={handleCreatePasskey}
