@@ -35,6 +35,8 @@ function Create4337SafeAccount() {
   const [safeAddress, setSafeAddress] = useState<string | undefined>(); // add state for safe address
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
   // async function handleCreatePassk ey() {
   //   const passkey = await createPasskey();
 
@@ -43,9 +45,14 @@ function Create4337SafeAccount() {
   //   setSelectedPasskey(passkey);
   // }
 
-  async function handleCreatePasskey(username: string, email: string) {
+  async function handleCreatePasskey(
+    username: string,
+    email: string,
+    password: string
+  ) {
     setUsername(username);
     setEmail(email);
+    setPassword(password);
 
     const passkey = await createPasskey();
     console.log(passkey, "passkey from page.tsx");
@@ -80,6 +87,7 @@ function Create4337SafeAccount() {
               safeAddress={safeAddress}
               username={username}
               email={email}
+              password={password}
             />
           ) : (
             <LoginWithPasskey

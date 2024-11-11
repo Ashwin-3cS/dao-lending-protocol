@@ -5,7 +5,7 @@ import { connectToDB } from "@/lib/dbConnect";
 export async function POST(request: Request) {
   await connectToDB();
   
-  const { username, email, passkey, safeAddress } = await request.json();
+  const { username, email, passkey, safeAddress,password } = await request.json();
   
 
   try {
@@ -15,6 +15,7 @@ export async function POST(request: Request) {
     const user = await User.create({
       username,
       email,
+      password,
       passkeys: [
         {
           rawId: passkey.rawId,

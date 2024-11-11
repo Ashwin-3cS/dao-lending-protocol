@@ -15,13 +15,18 @@ import {
 import { useState } from "react";
 
 type props = {
-  handleCreatePasskey: (username: string, email: string) => void;
+  handleCreatePasskey: (
+    username: string,
+    email: string,
+    password: string
+  ) => void;
   handleSelectPasskey: (passkey: PasskeyArgType) => {};
 };
 
 function LoginWithPasskey({ handleCreatePasskey, handleSelectPasskey }: props) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [existingEmail, setExistingEmail] = useState("");
   return (
     <Paper
@@ -60,9 +65,18 @@ function LoginWithPasskey({ handleCreatePasskey, handleSelectPasskey }: props) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        <TextField
+          label="Password"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
         <Button
-          onClick={() => handleCreatePasskey(username, email)}
+          onClick={() => handleCreatePasskey(username, email, password)}
           startIcon={<FingerprintIcon />}
           variant="outlined"
           sx={{ marginBottom: "24px" }}

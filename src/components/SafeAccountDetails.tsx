@@ -24,6 +24,7 @@ type props = {
   safeAddress: string | undefined;
   username: string;
   email: string;
+  password: string;
 };
 
 // function SafeAccountDetails({
@@ -84,6 +85,7 @@ function SafeAccountDetails({
   safeAddress,
   username,
   email,
+  password,
 }: props) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isSafeDeployed, setIsSafeDeployed] = useState<boolean>();
@@ -121,12 +123,13 @@ function SafeAccountDetails({
           email,
           passkey,
           safeAddress,
+          password,
         });
       } catch (error) {
         console.error("Error saving safe details:", error);
       }
     }
-  }, [passkey, setSafeAddress, username, email]);
+  }, [passkey, setSafeAddress, username, email, password]);
 
   useEffect(() => {
     showSafeInfo();

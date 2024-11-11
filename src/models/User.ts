@@ -18,6 +18,7 @@ interface Passkey {
 export interface IUser extends Document {
   username: string;
   email: string;
+  password: string;
   passkeys: Passkey[];
   safeAddress?: string;
 }
@@ -36,6 +37,12 @@ const userSchema = new Schema<IUser>({
     unique: true,
     trim: true,
     lowercase: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    set: (password: string) => encrypt(password), // Encrypt before storing
+    get: (encryptedPassword: string) => decrypt(encryptedPassword), // Decrypt when retrieving (optional)
   },
   passkeys: [
     {
