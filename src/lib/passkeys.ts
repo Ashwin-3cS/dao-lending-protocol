@@ -1,6 +1,8 @@
 import { PasskeyArgType, extractPasskeyData } from '@safe-global/protocol-kit'
 import { STORAGE_PASSKEY_LIST_KEY } from './constants'
 
+import axios from 'axios'
+
 /**
  * Create a passkey using WebAuthn API.
  * @returns {Promise<PasskeyArgType>} Passkey object with rawId and coordinates.
@@ -65,16 +67,25 @@ export function loadPasskeysFromLocalStorage(): PasskeyArgType[] {
 
   return passkeyIds
 }
+export async function loadPasskeysFromDB(email: string): Promise<PasskeyArgType[]> {
+  try {
+    const response = await axios.get(`/api/user/getUserPassKey/${email}`);
+    return response.data.passkeys;
+  } catch (error) {
+    console.error('Error loading passkeys from DB:', error);
+    return [];
+  }
+}
 
 /**
  * Get passkey object from local storage.
  * @param {string} passkeyRawId - Raw ID of the passkey.
  * @returns {PasskeyArgType} Passkey object.
  */
-export function getPasskeyFromRawId(passkeyRawId: string): PasskeyArgType {
-  const passkeys = loadPasskeysFromLocalStorage()
-
-  const passkey = passkeys.find((passkey) => passkey.rawId === passkeyRawId)!
+export async function getPasskeyFromRawId(passkeyRawId: string,email: string): Promise<PasskeyArgType | undefined> {
+  // const passkeys = loadPasskeysFromLocalStorage()
+  const passkeys =await loadPasskeysFromDB(email);
+  const passkey = passkeys.find((passkey:any) => passkey.rawId === passkeyRawId)!
 
   return passkey
 }

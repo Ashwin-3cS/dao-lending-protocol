@@ -8,7 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import { PasskeyArgType } from "@safe-global/protocol-kit";
-import { loadPasskeysFromLocalStorage } from "../lib/passkeys";
+import {
+  loadPasskeysFromLocalStorage,
+  loadPasskeysFromDB,
+} from "../lib/passkeys";
 import { useState } from "react";
 
 type props = {
@@ -19,6 +22,7 @@ type props = {
 function LoginWithPasskey({ handleCreatePasskey, handleSelectPasskey }: props) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [existingEmail, setExistingEmail] = useState("");
   return (
     <Paper
       sx={{
@@ -80,14 +84,39 @@ function LoginWithPasskey({ handleCreatePasskey, handleSelectPasskey }: props) {
         >
           Connect existing Safe using an existing passkey
         </Typography>
-
+        {/* 
         <Button
           startIcon={<FingerprintIcon />}
           variant="contained"
           onClick={async () => {
             const passkeys = loadPasskeysFromLocalStorage();
-
             handleSelectPasskey(passkeys[0]);
+          }}
+        >
+          Use an existing passkey
+        </Button> */}
+        <TextField
+          label="Email for Existing Passkey"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          type="email"
+          value={existingEmail}
+          onChange={(e) => setExistingEmail(e.target.value)}
+        />
+
+        <Button
+          startIcon={<FingerprintIcon />}
+          variant="contained"
+          onClick={async () => {
+            const passkeys = await loadPasskeysFromDB(existingEmail);
+            console.log(passkeys, "from button");
+
+            if (passkeys.length > 0) {
+              handleSelectPasskey(passkeys[0]);
+            } else {
+              console.error("No passkeys found for this email.");
+            }
           }}
         >
           Use an existing passkey

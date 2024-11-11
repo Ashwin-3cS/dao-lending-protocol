@@ -18,6 +18,11 @@ export const encrypt = (text: string): string => {
 
 // Decryption function
 export const decrypt = (text: string): string => {
+  console.log("Decryption input:", text);
+  if (!text || !text.includes(':')) {
+    throw new Error("Invalid format for decryption. Expected 'iv:encryptedText'");
+  }
+
   const [iv, encryptedText] = text.split(':');
   const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), Buffer.from(iv, 'hex'));
   let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
