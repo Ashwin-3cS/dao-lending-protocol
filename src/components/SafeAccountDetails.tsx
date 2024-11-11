@@ -143,6 +143,20 @@ function SafeAccountDetails({
     setIsLoading(false);
     setIsSafeDeployed(true);
     setUserOp(userOp);
+    if (safeAddress) {
+      const payload = {
+        safeAddress: safeAddress,
+        status: "active",
+        email: email,
+      };
+      const response = await axios.post(
+        "/api/user/storeSafeAddressStatus",
+        payload
+      );
+      console.log(response.data);
+    } else {
+      console.log(safeAddress, "safeAddress from handleMintNFT");
+    }
   }
 
   const safeLink = `https://app.safe.global/home?safe=sep:${safeAddress}`;

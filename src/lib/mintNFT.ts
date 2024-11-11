@@ -8,6 +8,7 @@ import {
   PAYMASTER_URL,
   RPC_URL
 } from './constants'
+import axios from 'axios'
 
 const paymasterOptions = {
   isSponsored: true,
@@ -66,8 +67,6 @@ export const mintNFT = async (
   })
 
   console.log(userOperationHash, 'userOperationHash');
-  
-
   return userOperationHash
 }
 
