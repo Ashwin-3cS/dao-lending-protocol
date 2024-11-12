@@ -41,7 +41,12 @@ contract DAOFactory {
         uint256 _minInvestment,
         uint256 _maxInvestment
     ) external onlyAdmin {
-        DAO newDAO = new DAO(_memberLimit, _minInvestment, admin);
+        DAO newDAO = new DAO(
+            _memberLimit,
+            _minInvestment,
+            _maxInvestment,
+            admin
+        );
 
         // Add DAO details to the struct
         DAOInfo memory daoInfo = DAOInfo({
