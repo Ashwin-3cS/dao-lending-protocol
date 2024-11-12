@@ -13,6 +13,7 @@ contract DAOFactory {
         uint256 memberLimit;
         uint256 minInvestment;
         uint256 daomaxInvestment;
+        uint256 lockPeriod;
     }
 
     // Mapping city name to list of DAOs in that city
@@ -39,13 +40,18 @@ contract DAOFactory {
         string calldata _daoName,
         uint256 _memberLimit,
         uint256 _minInvestment,
-        uint256 _maxInvestment
+        uint256 _maxInvestment,
+        uint256 _lockPeriod,
+        address _escrowManagerAddress
     ) external onlyAdmin {
+        // Create the new DAO without passing the factory address
         DAO newDAO = new DAO(
             _memberLimit,
             _minInvestment,
             _maxInvestment,
-            admin
+            _lockPeriod,
+            admin,
+            _escrowManagerAddress
         );
 
         // Add DAO details to the struct
@@ -55,7 +61,8 @@ contract DAOFactory {
             daoName: _daoName,
             memberLimit: _memberLimit,
             minInvestment: _minInvestment,
-            daomaxInvestment: _maxInvestment
+            daomaxInvestment: _maxInvestment,
+            lockPeriod: _lockPeriod
         });
 
         // Add DAO to the city's list
