@@ -4,6 +4,7 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebarHelper";
 import "../../app/globals.css";
+import Navbar from "@/components/Navbar";
 
 export default function PanelLayout({
   children,

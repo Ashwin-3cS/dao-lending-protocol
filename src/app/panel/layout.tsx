@@ -11,7 +11,7 @@ export default function PanelLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-black">
+    <div className="bg-zinc-950">
       <SidebarDemo />
     </div>
   );
