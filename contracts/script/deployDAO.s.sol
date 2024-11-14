@@ -11,7 +11,7 @@ contract DeployDAO is Script {
 
     uint256 memberLimit = 20; // Example values
     uint256 minInvestment = 7390000000000000; // Example values
-    uint256 maxInvestment = 147874307000000000 ether; // Example values
+    uint256 maxInvestment = 147874307000000000; // Example values
     uint256 lockPeriod = 31536000; // Example values
 
     function run() public {
