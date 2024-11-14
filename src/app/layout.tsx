@@ -21,10 +21,10 @@ export default function RootLayout({
         <div
           style={{
             display: "flex",
-            alignItems: "center",
+            // alignItems: "center",
             justifyContent: "space-between",
-            marginLeft: "40px",
-            marginRight: "40px",
+            // marginLeft: "40px",
+            // marginRight: "40px",
             flexDirection: "column",
           }}
         >

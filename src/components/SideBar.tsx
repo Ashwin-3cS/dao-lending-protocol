@@ -15,7 +15,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-// import Dashboard from '../../panel/transactions/dashboard'
+import Dashboard from "../app/panel/transactions/Dashboard/Content";
 
 export function SidebarDemo() {
   const links = [
@@ -85,7 +85,7 @@ export function SidebarDemo() {
           </div>
         </SidebarBody>
       </Sidebar>
-      {/* <Dashboard /> */}
+      <Dashboard />
     </div>
   );
 }
