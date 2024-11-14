@@ -9,7 +9,7 @@ import {IPoolAddressesProvider} from "../lib/aave-v3-origin/src/contracts/interf
 import {IERC20} from "../lib/aave-v3-origin/src/contracts/dependencies/openzeppelin/contracts/IERC20.sol";
 
 contract EscrowManagerTest is Script {
-    address public daoContract = 0x0000000000000000000000000000000000000000; // Your DAO contract address (replace with actual)
+    address public daoContract = 0xC4c48BFcCbdD552782B081d7eB81e769552A8b1D; // Your DAO contract address (replace with actual)
     address public poolAddressesProvider =
         0x012bAC54348C0E635dCAc9D5FB99f06F24136C9A; // Aave Pool Addresses Provider contract address (replace with actual)
     address public daiToken = 0xFF34B3d4Aee8ddCd6F9AFFFB6Fe49bD371b8a357; // DAI Token contract address (replace with actual)
