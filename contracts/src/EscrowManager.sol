@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.18;
+pragma solidity ^0.8.10;
 
 import {IPool} from "https://github.com/aave-dao/aave-v3-origin/blob/main/src/contracts/interfaces/IPool.sol";
 import {IPoolAddressesProvider} from "https://github.com/aave-dao/aave-v3-origin/blob/main/src/contracts/interfaces/IPool.sol";
@@ -15,18 +15,24 @@ contract EscrowManager {
     event FundsWithdrawn(uint256 amount);
 
     constructor(
-        address _daoContract,
+        address _daoContract, // Placeholder address initially
         address _poolAddressesProvider,
         address _daiToken,
         address _aDaiToken
     ) {
-        daoContract = _daoContract;
+        daoContract = _daoContract; // Assign the placeholder DAO contract address
         IPoolAddressesProvider provider = IPoolAddressesProvider(
             _poolAddressesProvider
         );
         pool = IPool(provider.getPool());
         daiToken = IERC20(_daiToken);
         aDaiToken = IERC20(_aDaiToken);
+    }
+
+    // Function to set the actual DAO address after deployment
+    function setDAOContract(address _daoContract) external {
+        require(daoContract == address(0), "DAO contract address already set"); // Only allow setting once
+        daoContract = _daoContract;
     }
 
     modifier onlyDAO() {
