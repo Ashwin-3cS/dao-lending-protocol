@@ -54,7 +54,7 @@ const transactionData = [
 ];
 
 const pieChartData = [
-  { name: "Corporate Card", value: 2500 },
+  { name: "Corporate Card", value: 5000 },
   { name: "Debit Card", value: 6435 },
   { name: "Credit Card", value: 5682 },
   { name: "Cash", value: 900 },
@@ -65,14 +65,14 @@ const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042"];
 const Content = () => {
   return (
     <main className="flex-1 p-6 space-y-6 overflow-y-auto bg-zinc-950">
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-2 gap-6">
         {/* Overview Cards */}
-        <Card />
+        {/* <Card /> */}
 
         {/* Scheduled Payments */}
         <Card className="bg-black text-white col-span-2">
           <CardHeader>
-            <CardTitle>Scheduled Payments</CardTitle>
+            <CardTitle>Total Value</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -133,63 +133,122 @@ const Content = () => {
       </div>
 
       {/* Transactions Overview */}
-      <Card className="bg-black text-white">
-        <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>Transactions Overview</CardTitle>
-          <div className="flex space-x-2">
-            {/* <Button variant="outline" size="sm">
+      <div className="grid grid-cols-2 gap-6">
+        <Card className="bg-black text-white">
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle>Active DAO's</CardTitle>
+            <div className="flex space-x-2">
+              {/* <Button variant="outline" size="sm">
             <Calendar className="h-4 w-4 mr-2" />
             Filter
           </Button> */}
-            <Button variant="outline" className="bg-black" size="sm">
-              <Trash2 className="h-4 w-4 mr-2" />
-              Clear
-            </Button>
-            <Button variant="outline" size="sm" className="bg-black">
-              <ArrowUpDown className="h-4 w-4 mr-2" />
-              Sort
-            </Button>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="text-left text-gray-400">
-                  <th className="pb-2">TX Hash</th>
-                  <th className="pb-2">Customer</th>
-                  <th className="pb-2">Chain</th>
-                  <th className="pb-2">Token</th>
-                  <th className="pb-2">Amount</th>
-                  <th className="pb-2">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {transactionData.map((transaction, index) => (
-                  <tr key={index} className="border-t border-gray-700">
-                    <td className="py-2">{transaction.txHash}</td>
-                    <td className="py-2">{transaction.customer}</td>
-                    <td className="py-2">{transaction.chain}</td>
-                    <td className="py-2">{transaction.token}</td>
-                    <td className="py-2">{transaction.amount}</td>
-                    <td className="py-2">
-                      <Badge
-                        className={
-                          transaction.status === "Confirmed"
-                            ? "bg-green-500"
-                            : "bg-yellow-500"
-                        }
-                      >
-                        {transaction.status}
-                      </Badge>
-                    </td>
+              <Button variant="outline" className="bg-black" size="sm">
+                <Trash2 className="h-4 w-4 mr-2" />
+                Clear
+              </Button>
+              <Button variant="outline" size="sm" className="bg-black">
+                <ArrowUpDown className="h-4 w-4 mr-2" />
+                Sort
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="text-left text-gray-400">
+                    <th className="pb-2">TX Hash</th>
+                    <th className="pb-2">Customer</th>
+                    <th className="pb-2">Chain</th>
+                    <th className="pb-2">Token</th>
+                    <th className="pb-2">Amount</th>
+                    <th className="pb-2">Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </CardContent>
-      </Card>
+                </thead>
+                <tbody>
+                  {transactionData.map((transaction, index) => (
+                    <tr key={index} className="border-t border-gray-700">
+                      <td className="py-2">{transaction.txHash}</td>
+                      <td className="py-2">{transaction.customer}</td>
+                      <td className="py-2">{transaction.chain}</td>
+                      <td className="py-2">{transaction.token}</td>
+                      <td className="py-2">{transaction.amount}</td>
+                      <td className="py-2">
+                        <Badge
+                          className={
+                            transaction.status === "Confirmed"
+                              ? "bg-green-500"
+                              : "bg-yellow-500"
+                          }
+                        >
+                          {transaction.status}
+                        </Badge>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="bg-black text-white">
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle>DAO's Records</CardTitle>
+            <div className="flex space-x-2">
+              {/* <Button variant="outline" size="sm">
+            <Calendar className="h-4 w-4 mr-2" />
+            Filter
+          </Button> */}
+              <Button variant="outline" className="bg-black" size="sm">
+                <Trash2 className="h-4 w-4 mr-2" />
+                Clear
+              </Button>
+              <Button variant="outline" size="sm" className="bg-black">
+                <ArrowUpDown className="h-4 w-4 mr-2" />
+                Sort
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="text-left text-gray-400">
+                    <th className="pb-2">TX Hash</th>
+                    <th className="pb-2">Customer</th>
+                    <th className="pb-2">Chain</th>
+                    <th className="pb-2">Token</th>
+                    <th className="pb-2">Amount</th>
+                    <th className="pb-2">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {transactionData.map((transaction, index) => (
+                    <tr key={index} className="border-t border-gray-700">
+                      <td className="py-2">{transaction.txHash}</td>
+                      <td className="py-2">{transaction.customer}</td>
+                      <td className="py-2">{transaction.chain}</td>
+                      <td className="py-2">{transaction.token}</td>
+                      <td className="py-2">{transaction.amount}</td>
+                      <td className="py-2">
+                        <Badge
+                          className={
+                            transaction.status === "Confirmed"
+                              ? "bg-green-500"
+                              : "bg-yellow-500"
+                          }
+                        >
+                          {transaction.status}
+                        </Badge>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </main>
   );
 };

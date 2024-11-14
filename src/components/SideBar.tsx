@@ -69,7 +69,7 @@ export function SidebarDemo() {
           <div>
             <SidebarLink
               link={{
-                label: "Manu Arora",
+                label: "Ashwin",
                 href: "#",
                 icon: (
                   <Image
@@ -93,7 +93,7 @@ export const Logo = () => {
   return (
     <Link
       href="#"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20 mt-4"
+      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20 mt-7"
     >
       <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
       <motion.span
@@ -101,7 +101,7 @@ export const Logo = () => {
         animate={{ opacity: 1 }}
         className="font-medium text-white dark:text-neutral-200 whitespace-pre"
       >
-        Acet Labs
+        YieldMate
       </motion.span>
     </Link>
   );
@@ -110,7 +110,7 @@ export const LogoIcon = () => {
   return (
     <Link
       href="#"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20 mt-7"
     >
       <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
     </Link>
