@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {IPool} from "https://github.com/aave-dao/aave-v3-origin/blob/main/src/contracts/interfaces/IPool.sol";
-import {IPoolAddressesProvider} from "https://github.com/aave-dao/aave-v3-origin/blob/main/src/contracts/interfaces/IPool.sol";
-import {IERC20} from "https://github.com/aave-dao/aave-v3-origin/blob/main/src/contracts/dependencies/openzeppelin/contracts/IERC20.sol";
+import {IPool} from "../lib/aave-v3-origin/src/contracts/interfaces/IPool.sol";
+import {IPoolAddressesProvider} from "../lib/aave-v3-origin/src/contracts/interfaces/IPool.sol";
+import {IERC20} from "../lib/aave-v3-origin/src/contracts/dependencies/openzeppelin/contracts/IERC20.sol";
 
 contract EscrowManager {
     address public daoContract;
