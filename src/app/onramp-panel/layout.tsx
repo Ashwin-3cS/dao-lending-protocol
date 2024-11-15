@@ -3,7 +3,7 @@
 
 import "../../app/globals.css";
 // import { Sidebar } from "@/components/ui/ui/sidebar";
-import { SidebarDemo } from "@/components/SideBarPanel";
+import { SidebarDemo } from "@/components/SideBarOnrampPanel";
 
 export default function PanelLayout({
   children,
