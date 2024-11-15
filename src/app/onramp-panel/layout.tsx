@@ -13,7 +13,6 @@ export default function PanelLayout({
   return (
     <div className="bg-zinc-950">
       <SidebarDemo />
-      {children}
     </div>
   );
 }
